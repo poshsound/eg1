@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>국립 한국방송통신대학교 - 국민 배움 & 소통 포털</title>
+  
+  <!-- Pretendard Web Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            knou: {
+              primary: '#1B4332',      // 딥 포레스트 그린 (신뢰감과 국립대의 위상)
+              secondary: '#2D6A4F',    // 세이지 에메랄드 (부드럽고 품격 있는 녹색)
+              accent: '#D97706',       // 웜 앰버 골드 (따뜻하고 눈에 띄는 포인트 컬러)
+              accentHover: '#B45309',  // 앰버 호버
+              lightBg: '#F4F7F4',      // 눈부심을 줄여주는 세이지 틴트 소프트 배경
+              darkBg: '#081C15',       // 딥 모스 나이트 (다크모드 피로 저감 배경)
+              cardBg: '#FFFFFF',
+              darkCard: '#112A20',     // 다크모드 카드 배경
+              border: '#D1E7DD',       // 부드러운 그린 보더라인
+              darkBorder: '#1F4738',   // 다크모드 보더라인
+              sageTint: '#E8F5E9'      // 연한 세이지 하이라이트
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Pretendard', sans-serif;
+      word-break: keep-all;
+      background-color: #F4F7F4;
+      color: #1F2923;
+    }
+    /* 글자 크기 조절 클래스 (어르신·학습자 맞춤형) */
+    .font-size-sm { font-size: 90%; }
+    .font-size-base { font-size: 100%; }
+    .font-size-lg { font-size: 112.5%; }
+    .font-size-xl { font-size: 125%; }
+
+    /* 커스텀 편안한 스크롤바 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EAF0EC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #74A892;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #528B73;
+    }
+
+    /* 반짝이는 배지 애니메이션 */
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-knou-lightBg text-[#1F2923] dark:bg-knou-darkBg dark:text-emerald-50 transition-colors duration-200 min-h-screen flex flex-col font-size-base" id="page-root">
+
+  <!-- 접근성 스킵 네비게이션 -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-knou-accent focus:text-white focus:rounded-md focus:shadow-lg">
+    본문 내용 바로가기
+  </a>
+
+  <!-- 상단 대국민 편의 헤더 바 (포레스트 그린) -->
+  <div class="bg-knou-primary text-white text-xs sm:text-sm py-2 px-4 border-b border-emerald-900/60">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-3">
+        <span class="bg-emerald-800 text-emerald-100 px-2 py-0.5 rounded text-xs font-semibold">대한민국 유일 4년제 국립 원격대학교</span>
+        <span class="hidden md:inline text-emerald-200/90">누구나, 언제, 어디서나 배우는 눈이 편안한 열린 교육 포털</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- 글자 크기 조절기 (어르신 및 시각 편의) -->
+        <div class="flex items-center gap-1 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-800">
+          <span class="text-xs text-emerald-200 mr-1"><i class="fa-solid fa-font"></i> 글자크기:</span>
+          <button onclick="changeFontSize('sm')" title="작게" class="px-1.5 py-0.5 rounded hover:bg-emerald-800 text-xs font-medium">가-</button>
+          <button onclick="changeFontSize('base')" title="보통" class="px-1.5 py-0.5 rounded hover:bg-emerald-800 text-xs font-medium bg-emerald-700">기본</button>
+          <button onclick="changeFontSize('lg')" title="크게" class="px-1.5 py-0.5 rounded hover:bg-emerald-800 text-xs font-medium">가+</button>
+          <button onclick="changeFontSize('xl')" title="아주 크게" class="px-1.5 py-0.5 rounded hover:bg-emerald-800 text-xs font-bold text-amber-300">가++</button>
+        </div>
+        <!-- 다크모드 토글 -->
+        <button onclick="toggleDarkMode()" class="p-1 rounded hover:text-amber-300 transition-colors" title="화면 모드 전환">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <!-- 공식홈페이지 연결 링크 -->
+        <a href="https://www.knou.ac.kr" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1 text-emerald-200 hover:text-white font-medium">
+          공식 포털 바로가기 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메인 네비게이션 헤더 -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-knou-darkCard/95 backdrop-blur-md shadow-sm border-b border-emerald-100 dark:border-knou-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- 로고 & 타이틀 (줄바꿈 방지 및 shrink-0 적용) -->
+      <a href="#" class="flex items-center gap-3 group shrink-0">
+        <div class="w-11 h-11 bg-knou-primary text-emerald-50 rounded-xl flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition-transform border border-emerald-600/30 shrink-0">
+          KNOU
+        </div>
+        <div class="shrink-0">
+          <div class="text-lg sm:text-xl font-bold text-knou-primary dark:text-emerald-400 flex items-center gap-2 whitespace-nowrap">
+            한국방송통신대학교
+            <span class="text-xs font-medium px-2 py-0.5 bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 rounded-full border border-emerald-200 dark:border-emerald-800 whitespace-nowrap">국민소통포털</span>
+          </div>
+          <p class="text-xs text-emerald-700/80 dark:text-emerald-400/80 hidden sm:block whitespace-nowrap">Korea National Open University · 배움으로 미래를 열다</p>
+        </div>
+      </a>
+
+      <!-- 데스크톱 메뉴 (줄바꿈 방지 whitespace-nowrap 적용) -->
+      <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1.5 shrink-0">
+        <a href="#about" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">학교 소개</a>
+        <a href="#duties" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">6대 주요 업무</a>
+        <a href="#hot-issues" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-knou-accent dark:text-amber-400 hover:text-amber-600 rounded-md hover:bg-amber-50 dark:hover:bg-amber-950/40 transition flex items-center gap-1 whitespace-nowrap">
+          <i class="fa-solid fa-leaf text-xs text-emerald-600"></i> 최근 이슈 & 포커스
+        </a>
+        <a href="#departments" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">학과 탐색기</a>
+        <a href="#tuition-calc" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">학비 & 장학 혜택</a>
+        <a href="#network" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">전국 지역대학</a>
+        <a href="#faq" class="px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-semibold text-slate-700 dark:text-emerald-100 hover:text-knou-primary dark:hover:text-emerald-400 rounded-md hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition whitespace-nowrap">자주 묻는 질문</a>
+      </nav>
+
+      <!-- 퀵 액션 버튼 (웜 앰버 골드, shrink-0) -->
+      <div class="hidden sm:flex items-center gap-2.5 shrink-0">
+        <button onclick="openModal('admissionGuideModal')" class="px-3.5 xl:px-4 py-2 text-xs xl:text-sm font-bold text-white bg-knou-accent hover:bg-knou-accentHover rounded-lg shadow-sm transition-all hover:shadow hover:-translate-y-0.5 flex items-center gap-1.5 whitespace-nowrap">
+          <i class="fa-solid fa-graduation-cap"></i> 2025/2026 입학가이드
+        </button>
+      </div>
+
+      <!-- 모바일 햄버거 버튼 -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-emerald-800 dark:text-emerald-200 hover:bg-emerald-50 dark:hover:bg-emerald-950">
+        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- 모바일 메뉴 드롭다운 -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-emerald-100 dark:border-knou-darkBorder bg-white dark:bg-knou-darkCard px-4 py-4 space-y-2">
+      <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">학교 소개</a>
+      <a href="#duties" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">6대 주요 업무</a>
+      <a href="#hot-issues" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-knou-accent dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/30">최근 핫이슈 & 쟁점</a>
+      <a href="#departments" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">학과 탐색기 (24개 학과)</a>
+      <a href="#tuition-calc" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">등록금 비교 & 장학금</a>
+      <a href="#network" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">전국 13개 지역대학 망</a>
+      <a href="#faq" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-slate-700 dark:text-emerald-100 hover:bg-emerald-50 dark:hover:bg-emerald-950/40">자주 묻는 질문(FAQ)</a>
+      <div class="pt-2">
+        <button onclick="openModal('admissionGuideModal'); toggleMobileMenu();" class="w-full py-2.5 text-center text-sm font-bold text-white bg-knou-accent hover:bg-knou-accentHover rounded-lg shadow">
+          <i class="fa-solid fa-graduation-cap mr-1"></i> 입학안내 한눈에 보기
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 본문 콘텐츠 -->
+  <main id="main-content" class="flex-grow">
+
+    <!-- 히어로 섹션 (포레스트 & 에버그린 배너) -->
+    <section class="relative bg-gradient-to-br from-[#1B4332] via-[#2D6A4F] to-[#081C15] text-white overflow-hidden py-16 lg:py-24">
+      <!-- 배경 장식 패턴 -->
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#A7F3D0_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+      <div class="absolute -right-20 -top-20 w-96 h-96 bg-emerald-400/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-amber-400/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs sm:text-sm font-semibold backdrop-blur-sm">
+              <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span>
+              1972년 개교 · 80만 동문의 힘 · 국립 고등평생교육의 허브
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              배움의 문턱은 낮추고,<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-amber-200 to-emerald-300">
+                푸른 미래의 가능성을 여는
+              </span><br>
+              국립 한국방송통신대학교
+            </h1>
+
+            <p class="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              방송대는 경제적 여건이나 시공간의 제약 없이 모든 국민이 양질의 대학교육을 받을 수 있도록 설립된 대한민국 최초이자 유일한 4년제 국립 원격대학교입니다. 
+              일과 학습의 병행, 인생 2막을 준비하는 10만 학우의 꿈을 푸른 숲처럼 든든하게 응원합니다.
+            </p>
+
+            <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
+              <a href="#hot-issues" class="px-6 py-3.5 bg-gradient-to-r from-knou-accent to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-lg shadow-amber-900/30 flex items-center gap-2 transition-all hover:scale-105">
+                <i class="fa-solid fa-leaf text-amber-200"></i> 최근 이슈 심층 브리핑
+              </a>
+              <a href="#departments" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-2 transition-all hover:scale-105">
+                <i class="fa-solid fa-compass text-emerald-200"></i> 나에게 맞는 학과 찾기
+              </a>
+              <a href="https://www.knou.ac.kr" target="_blank" rel="noopener noreferrer" class="px-5 py-3.5 bg-emerald-950/60 hover:bg-emerald-950 text-emerald-200 font-medium rounded-xl border border-emerald-700/50 flex items-center gap-1.5 transition">
+                공식 홈페이지 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 통계 카드 그리드 (세이지 & 에버그린 톤) -->
+          <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-5 rounded-2xl text-center transform hover:-translate-y-1 transition duration-300">
+              <div class="text-amber-300 text-3xl mb-2"><i class="fa-solid fa-coins"></i></div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white">학기당 ~36만원</div>
+              <p class="text-xs sm:text-sm text-emerald-200 mt-1">일반 사립대의 1/11 수준 등록금</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-5 rounded-2xl text-center transform hover:-translate-y-1 transition duration-300">
+              <div class="text-emerald-300 text-3xl mb-2"><i class="fa-solid fa-users"></i></div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white">누적 80만 동문</div>
+              <p class="text-xs sm:text-sm text-emerald-200 mt-1">재학생 10만명 전국 최대 규모</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-5 rounded-2xl text-center transform hover:-translate-y-1 transition duration-300">
+              <div class="text-teal-300 text-3xl mb-2"><i class="fa-solid fa-map-location-dot"></i></div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white">전국 44개 거점</div>
+              <p class="text-xs sm:text-sm text-emerald-200 mt-1">13개 지역대학 + 31개 학습관</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 p-5 rounded-2xl text-center transform hover:-translate-y-1 transition duration-300">
+              <div class="text-amber-200 text-3xl mb-2"><i class="fa-solid fa-mobile-screen-button"></i></div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white">24시간 스마트러닝</div>
+              <p class="text-xs sm:text-sm text-emerald-200 mt-1">U-KNOU & OUN 방송대학TV</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 학교 소개 요약 및 비전 배너 -->
+    <section id="about" class="py-12 bg-white dark:bg-knou-darkCard border-b border-emerald-100 dark:border-knou-darkBorder">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-[#F0F7F2] dark:bg-emerald-950/40 rounded-2xl p-6 sm:p-8 border border-emerald-200 dark:border-emerald-800">
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="w-16 h-16 rounded-2xl bg-knou-primary text-emerald-100 flex items-center justify-center text-3xl shrink-0 shadow-md">
+              <i class="fa-solid fa-landmark-flag"></i>
+            </div>
+            <div class="space-y-2 flex-grow text-center md:text-left">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">About KNOU · 설립 목적 및 성격</span>
+              <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">대한민국 헌법 제31조 "모든 국민은 균등하게 교육을 받을 권리를 가진다"</h2>
+              <p class="text-slate-600 dark:text-emerald-100/90 text-sm leading-relaxed">
+                1972년 서울대학교 부설 방송통신대학으로 출발하여 1993년 독자적인 국립 4년제 종합대학교로 승격한 한국방송통신대학교는 
+                배움의 기회를 놓쳤던 만학도, 직장인, 주부, 청년, 고령층 등 모든 대한민국 국민에게 학비 부담 없는 최고의 평생고등교육 기회를 제공합니다.
+              </p>
+            </div>
+            <div class="shrink-0 flex flex-col sm:flex-row gap-2">
+              <button onclick="openModal('historyModal')" class="px-4 py-2 text-sm font-semibold text-emerald-900 dark:text-emerald-200 bg-white dark:bg-emerald-900/60 hover:bg-emerald-100 dark:hover:bg-emerald-800 rounded-lg border border-emerald-300 dark:border-emerald-700 transition">
+                <i class="fa-solid fa-clock-rotate-left mr-1"></i> 대학 연혁 보기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 1: 방송대의 6대 주요 업무 (친절한 대국민 안내) -->
+    <section id="duties" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          <i class="fa-solid fa-briefcase"></i> 핵심 공공 기능
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          한국방송통신대학교가 국민을 위해 하는 <span class="text-knou-primary dark:text-emerald-400">6대 주요 업무</span>
+        </h2>
+        <p class="text-slate-600 dark:text-emerald-200/80 text-sm sm:text-base">
+          온라인 원격교육부터 전국 오프라인 출석시험, 첨단 직무재교육까지 국민의 든든한 평생 배움 지원 체계를 운영합니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 업무 1 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-knou-primary dark:text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-emerald-200 dark:border-emerald-800">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-knou-primary dark:group-hover:text-emerald-400 transition">
+              1. 시공간 초월 원격 고등교육 제공
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              PC 및 스마트폰(U-KNOU 캠퍼스 앱)을 통해 24시간 언제 어디서나 고화질 강의를 수강할 수 있습니다. 
+              자체 방송국인 <strong>방송대학TV(OUN)</strong>를 통해 케이블·IPTV로도 연중 양질의 교육방송 프로그램을 송출합니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
+            <span>스마트러닝 배속재생 · 오프라인 다운로드 지원</span>
+          </div>
+        </div>
+
+        <!-- 업무 2 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-amber-200 dark:border-amber-900/50">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-knou-accent transition">
+              2. 전국 44개 온·오프라인 블렌디드 망 운영
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              원격대학의 한계를 극복하기 위해 전국 13개 시·도 지역대학과 31개 시·군 학습관을 직접 운영합니다. 
+              교수진과의 대면 출석수업, 지역 스터디 그룹 활동, 전자도서관 및 열람실 인프라를 무료로 제공합니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-amber-700 dark:text-amber-400 font-semibold">
+            <span>서울부터 제주까지 촘촘한 지역 학습 허브</span>
+          </div>
+        </div>
+
+        <!-- 업무 3 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-teal-200 dark:border-teal-900/50">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-300 transition">
+              3. 대국민 보편적 교육복지 및 장학 지원
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              국립대학교로서 1학기 등록금을 30만 원대 중반으로 동결하여 경제적 부담을 극소화했습니다. 
+              국가장학금(소득 1~8구간 전액 지원) 연계 및 실버장학, 장애인장학, 다문화장학 등 풍부한 장학 혜택을 제공합니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-teal-700 dark:text-teal-400 font-semibold">
+            <span>재학생 약 60% 이상이 장학 혜택 수혜</span>
+          </div>
+        </div>
+
+        <!-- 업무 4 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100/80 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-emerald-300 dark:border-emerald-700">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition">
+              4. 성인학습자·재직자 맞춤형 프라임칼리지
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              선취업 후진학자 및 재직자를 위한 '프라임칼리지(PRIME College)'를 운영하여 
+              첨단공학부(메카트로닉스, 산업공학)와 융합경영학부 등 100% 온라인 학위과정 및 단기 직무역량과정(마이크로디그리)을 제공합니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-emerald-700 dark:text-emerald-400 font-semibold">
+            <span>재직자 직무 전환 및 미래 신산업 스킬업</span>
+          </div>
+        </div>
+
+        <!-- 업무 5 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-cyan-200 dark:border-cyan-900/50">
+              <i class="fa-solid fa-tablet-screen-button"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300 transition">
+              5. 태블릿 기반 스마트 출석평가(CBT) 혁신
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              기존의 종이 시험지 방식을 완전히 탈피하여 전국 13개 지역대학에 디지털 태블릿 CBT 시험장을 구축했습니다. 
+              학습자가 원하는 날짜와 교시를 직접 선택하여 응시할 수 있는 유연한 평가 체계를 운영합니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-cyan-700 dark:text-cyan-400 font-semibold">
+            <span>원하는 일정에 맞춰 시험 예약 및 응시 가능</span>
+          </div>
+        </div>
+
+        <!-- 업무 6 -->
+        <div class="bg-white dark:bg-knou-darkCard rounded-2xl p-6 shadow-sm hover:shadow-md border border-emerald-100 dark:border-knou-darkBorder transition duration-300 flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-lime-50 dark:bg-lime-950/40 text-lime-700 dark:text-lime-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform border border-lime-200 dark:border-lime-900/50">
+              <i class="fa-solid fa-earth-americas"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-lime-700 dark:group-hover:text-lime-300 transition">
+              6. 글로벌 K-원격교육 전수 & 지식 공헌
+            </h3>
+            <p class="text-slate-600 dark:text-emerald-100/80 text-sm leading-relaxed">
+              유네스코 유니트윈(UNITWIN) 협력 및 공적개발원조(ODA) 사업을 통해 베트남, 몽골, 아프리카 등 개발도상국에 원격고등교육 모델을 전수합니다. 
+              또한 K-MOOC 등 대국민 무료 공개강좌를 지속 보급하여 사회적 지식 공유에 앞장섭니다.
+            </p>
+          </div>
+          <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex items-center text-xs text-lime-700 dark:text-lime-400 font-semibold">
+            <span>대한민국 원격고등교육의 세계화 선도</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 섹션 2: 최근 5대 핵심 핫이슈 & 심층 쟁점 (포레스트 & 앰버 톤) -->
+    <section id="hot-issues" class="py-16 bg-[#EDF3EE] dark:bg-emerald-950/20 border-y border-emerald-200/80 dark:border-knou-darkBorder">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-800 mb-2">
+              <i class="fa-solid fa-leaf text-emerald-600"></i> 국민 관심 집중 FOCUS
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+              한국방송통신대학교 <span class="text-knou-accent">최근 핵심 이슈 5선</span>
+            </h2>
+            <p class="text-slate-600 dark:text-emerald-200/80 text-sm sm:text-base mt-1">
+              방송대 로스쿨 설치 논의부터 AI 첨단교육 개편, 인생 2막 시니어 열풍까지 지금 화제가 되는 주요 쟁점을 쉽게 풀어드립니다.
+            </p>
+          </div>
+          <span class="text-xs text-emerald-800/70 dark:text-emerald-400/80">
+            * 2024~2026년 최신 교육계 현안 반영
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- 주요 이슈 1: 방송대 로스쿨 (메인 하이라이트) -->
+          <div class="lg:col-span-7 bg-white dark:bg-knou-darkCard rounded-2xl p-6 sm:p-8 border-2 border-emerald-300 dark:border-emerald-700/60 shadow-md relative overflow-hidden flex flex-col justify-between">
+            <div class="absolute top-0 right-0 bg-gradient-to-l from-amber-600 to-knou-accent text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl shadow-sm">
+              <i class="fa-solid fa-scale-balanced mr-1"></i> 사회적 공론화 1위 이슈
+            </div>
+            
+            <div class="space-y-5">
+              <div class="inline-block text-xs font-bold uppercase tracking-wider text-knou-accent dark:text-amber-400">ISSUE 01</div>
+              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-snug">
+                "계층 이동의 사다리 복원"<br>
+                국립 방송통신 법학전문대학원(온라인 로스쿨) 도입 추진
+              </h3>
+
+              <p class="text-slate-600 dark:text-emerald-100/90 text-sm sm:text-base leading-relaxed">
+                기존 로스쿨 제도가 연간 수천만 원에 달하는 등록금과 주간 전업 학습 위주로 운영되어 
+                '현대판 음서제', '귀족 스쿨'이라는 비판을 받아왔습니다. 이에 따라 직장인, 주부, 사회적 취약계층도 생업을 유지하며 
+                법조인의 꿈을 이룰 수 있도록 국립 방송대에 <strong>온라인 기반 야간·원격 로스쿨</strong>을 설치하자는 특별법안이 국회와 사회 전반에서 끊임없이 재점화되고 있습니다.
+              </p>
+
+              <!-- 쟁점 비교 카드 -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800">
+                  <div class="text-emerald-800 dark:text-emerald-300 font-bold text-xs flex items-center gap-1.5 mb-1.5">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i> 도입 찬성 & 기대 효과
+                  </div>
+                  <ul class="text-xs text-slate-600 dark:text-emerald-100/80 space-y-1 list-disc list-inside">
+                    <li>저렴한 국립대 등록금으로 경제적 장벽 해소</li>
+                    <li>생업·가사 병행 가능 (일·학습 병행 법조인 양성)</li>
+                    <li>다양한 사회 경험을 가진 전문 법률 인재 배출</li>
+                  </ul>
+                </div>
+                
+                <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50">
+                  <div class="text-amber-800 dark:text-amber-300 font-bold text-xs flex items-center gap-1.5 mb-1.5">
+                    <i class="fa-solid fa-circle-exclamation text-amber-600"></i> 반대 및 주요 우려 (법학계 등)
+                  </div>
+                  <ul class="text-xs text-slate-600 dark:text-emerald-100/80 space-y-1 list-disc list-inside">
+                    <li>기존 25개 로스쿨 체제와 변호사 시험 정원 충돌</li>
+                    <li>대면 임상실무(리걸클리닉) 교육 부실화 우려</li>
+                    <li>변호사 시험 탈락자(변시 낭인) 양산 가능성</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 mt-6 border-t border-emerald-100 dark:border-knou-darkBorder flex flex-wrap items-center justify-between gap-3">
+              <span class="text-xs font-medium text-slate-500 dark:text-emerald-400">
+                <i class="fa-regular fa-newspaper mr-1"></i> 국회 입법 발의 및 공청회 지속 추진 중
+              </span>
+              <button onclick="openModal('issueLawModal')" class="text-xs font-bold text-amber-700 dark:text-amber-400 hover:underline flex items-center gap-1">
+                로스쿨 이슈 상세 리포트 읽기 <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- 나머지 4대 이슈 리스트 -->
+          <div class="lg:col-span-5 space-y-4">
+            
+            <!-- 이슈 2 -->
+            <div class="bg-white dark:bg-knou-darkCard rounded-xl p-5 border border-emerald-100 dark:border-knou-darkBorder hover:border-emerald-400 dark:hover:border-emerald-600 transition shadow-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-knou-primary dark:text-emerald-300 flex items-center justify-center font-bold text-sm shrink-0 border border-emerald-200 dark:border-emerald-700">
+                  02
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">AI·첨단 신기술 학부 및 에듀테크 가상실습 개편</h4>
+                    <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">미래교육</span>
+                  </div>
+                  <p class="text-slate-600 dark:text-emerald-100/80 text-xs sm:text-sm mt-1 leading-relaxed">
+                    프라임칼리지 첨단공학부(메카트로닉스, 산업공학)와 데이터과학 교육을 대폭 강화하고, 웹 기반 가상 실험·실습실(Virtual Lab)을 통해 비대면 환경에서도 물리·화학·공학 시뮬레이션 실습이 가능해졌습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 이슈 3 -->
+            <div class="bg-white dark:bg-knou-darkCard rounded-xl p-5 border border-emerald-100 dark:border-knou-darkBorder hover:border-emerald-400 dark:hover:border-emerald-600 transition shadow-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-teal-100 dark:bg-teal-900/60 text-teal-800 dark:text-teal-300 flex items-center justify-center font-bold text-sm shrink-0 border border-teal-200 dark:border-teal-700">
+                  03
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">초고령사회 도래! 시니어 '인생 2막' 자격증 열풍</h4>
+                    <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">평생학습</span>
+                  </div>
+                  <p class="text-slate-600 dark:text-emerald-100/80 text-xs sm:text-sm mt-1 leading-relaxed">
+                    50~70대 신입생 비중이 급증하며 은퇴 후 제2의 커리어를 위해 사회복지사, 평생교육사, 청소년상담사, 산림치유지도사 등 국가공인 자격증 취득 목적의 입학이 방송대의 핵심 트렌드로 자리잡았습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 이슈 4 -->
+            <div class="bg-white dark:bg-knou-darkCard rounded-xl p-5 border border-emerald-100 dark:border-knou-darkBorder hover:border-emerald-400 dark:hover:border-emerald-600 transition shadow-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 flex items-center justify-center font-bold text-sm shrink-0 border border-amber-200 dark:border-amber-700">
+                  04
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">종이 시험지 전면 퇴장, 태블릿 스마트 출석평가 정착</h4>
+                    <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">디지털혁신</span>
+                  </div>
+                  <p class="text-slate-600 dark:text-emerald-100/80 text-xs sm:text-sm mt-1 leading-relaxed">
+                    전국 지역대학에 태블릿 기반 IBT/CBT 시험 체계를 전면 구축하여 시험 일정 선택권 부여, 출제 보안성 향상, 즉각적인 성적 피드백 등 학생들의 학사 만족도가 획기적으로 향상되었습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 이슈 5 -->
+            <div class="bg-white dark:bg-knou-darkCard rounded-xl p-5 border border-emerald-100 dark:border-knou-darkBorder hover:border-emerald-400 dark:hover:border-emerald-600 transition shadow-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-lg bg-lime-100 dark:bg-lime-900/60 text-lime-800 dark:text-lime-300 flex items-center justify-center font-bold text-sm shrink-0 border border-lime-200 dark:border-lime-700">
+                  05
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-slate-900 dark:text-white text-base">'K-원격고등교육' 글로벌 원조(ODA) 및 동포 교육</h4>
+                    <span class="bg-lime-100 text-lime-800 text-[10px] font-bold px-2 py-0.5 rounded">글로벌위상</span>
+                  </div>
+                  <p class="text-slate-600 dark:text-emerald-100/80 text-xs sm:text-sm mt-1 leading-relaxed">
+                    유네스코와 함께 아시아·아프리카 국가들에 50년간 축적된 한국형 원격대학 운영 노하우를 전수하고, 800만 해외 동포들이 시공간 제약 없이 고국 학위를 취득할 수 있는 온라인 통로를 넓히고 있습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 섹션 3: 학과 탐색기 (인터랙티브 탭 & 실시간 검색 & 자격증 필터) -->
+    <section id="departments" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          <i class="fa-solid fa-book-open"></i> 전공 및 교육과정
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          나의 꿈을 실현할 <span class="text-knou-primary dark:text-emerald-400">학과 탐색기</span>
+        </h2>
+        <p class="text-slate-600 dark:text-emerald-200/80 text-sm sm:text-base">
+          인문, 사회, 자연, 교육과학 등 4개 단과대학 및 프라임칼리지의 24개 학과와 연계 취득 가능한 전문 자격증을 검색해보세요.
+        </p>
+      </div>
+
+      <!-- 검색 & 필터 컨트롤 바 -->
+      <div class="bg-white dark:bg-knou-darkCard p-4 sm:p-6 rounded-2xl shadow-sm border border-emerald-100 dark:border-knou-darkBorder mb-8 space-y-4">
+        
+        <div class="flex flex-col md:flex-row gap-3">
+          <!-- 텍스트 검색 입력 -->
+          <div class="relative flex-grow">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500"></i>
+            <input 
+              type="text" 
+              id="deptSearchInput" 
+              oninput="filterDepartments()" 
+              placeholder="학과명, 관심 키워드(예: 자격증, 사회복지, AI, 영어, 법학, 데이터 등)를 입력하세요" 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-[#F7FAF7] dark:bg-emerald-950/40 text-slate-800 dark:text-emerald-100 text-sm focus:outline-none focus:ring-2 focus:ring-knou-secondary"
+            />
+          </div>
+
+          <!-- 인기 자격증 빠른 필터 -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 text-xs text-slate-600 dark:text-emerald-200">
+            <span class="shrink-0 font-bold text-slate-700 dark:text-emerald-100 mr-1"><i class="fa-solid fa-tags text-amber-500"></i> 추천자격증:</span>
+            <button onclick="quickFilterTag('사회복지사')" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 hover:text-emerald-800 shrink-0 transition border border-emerald-200 dark:border-emerald-800">사회복지사</button>
+            <button onclick="quickFilterTag('평생교육사')" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 hover:text-emerald-800 shrink-0 transition border border-emerald-200 dark:border-emerald-800">평생교육사</button>
+            <button onclick="quickFilterTag('청소년상담사')" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 hover:text-emerald-800 shrink-0 transition border border-emerald-200 dark:border-emerald-800">청소년상담사</button>
+            <button onclick="quickFilterTag('정보처리기사')" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 hover:text-emerald-800 shrink-0 transition border border-emerald-200 dark:border-emerald-800">정보처리기사</button>
+            <button onclick="quickFilterTag('영양사')" class="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-100 dark:hover:bg-emerald-900 hover:text-emerald-800 shrink-0 transition border border-emerald-200 dark:border-emerald-800">영양사</button>
+            <button onclick="resetDeptFilter()" class="px-2.5 py-1 rounded-full bg-emerald-200 dark:bg-emerald-800 text-emerald-900 dark:text-emerald-100 shrink-0 font-semibold hover:bg-emerald-300">전체보기</button>
+          </div>
+        </div>
+
+        <!-- 단과대 탭 버튼 -->
+        <div class="flex flex-wrap gap-2 border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+          <button onclick="selectCollege('ALL')" class="college-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-knou-primary text-white transition">전체 학과 (24)</button>
+          <button onclick="selectCollege('HUMANITIES')" class="college-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#EAF0EC] dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100 transition">인문과학대학</button>
+          <button onclick="selectCollege('SOCIAL')" class="college-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#EAF0EC] dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100 transition">사회과학대학</button>
+          <button onclick="selectCollege('NATURAL')" class="college-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#EAF0EC] dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100 transition">자연과학대학</button>
+          <button onclick="selectCollege('EDUCATION')" class="college-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#EAF0EC] dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100 transition">교육과학대학</button>
+          <button onclick="selectCollege('PRIME')" class="college-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#EAF0EC] dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-100 transition">프라임칼리지 (첨단학부)</button>
+        </div>
+
+      </div>
+
+      <!-- 학과 카드 리스트 렌더링 영역 -->
+      <div id="departmentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 자바스크립트로 동적 렌더링 -->
+      </div>
+
+      <!-- 검색 결과 없음 안내 -->
+      <div id="noDeptResults" class="hidden text-center py-12 bg-white dark:bg-knou-darkCard rounded-2xl border border-emerald-100 dark:border-knou-darkBorder">
+        <i class="fa-solid fa-circle-question text-4xl text-emerald-300 dark:text-emerald-700 mb-3"></i>
+        <p class="text-base font-bold text-slate-700 dark:text-emerald-200">검색 조건과 일치하는 학과를 찾을 수 없습니다.</p>
+        <p class="text-xs text-emerald-600/70 mt-1">다른 검색어를 입력하시거나 '전체보기'를 눌러주세요.</p>
+        <button onclick="resetDeptFilter()" class="mt-4 px-4 py-2 text-xs font-bold bg-knou-primary text-white rounded-lg hover:bg-knou-secondary transition">전체 목록 복원</button>
+      </div>
+
+    </section>
+
+    <!-- 섹션 4: 등록금 비교 & 국가장학금 혜택 체험기 (비용 시뮬레이터) -->
+    <section id="tuition-calc" class="py-16 bg-gradient-to-b from-[#EDF3EE] to-white dark:from-emerald-950/30 dark:to-knou-darkCard border-y border-emerald-200/80 dark:border-knou-darkBorder">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+            <i class="fa-solid fa-piggy-bank"></i> 압도적인 경제성
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+            돈 걱정 없이 공부하는 <span class="text-knou-primary dark:text-emerald-400">국립대 등록금 & 장학 혜택</span>
+          </h2>
+          <p class="text-slate-600 dark:text-emerald-200/80 text-sm sm:text-base">
+            방송대의 학비는 일반 사립대의 약 11분의 1 수준입니다. 국가장학금과 교내장학금을 통해 실질 자부담 '0원'으로 졸업할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- 등록금 비교 시각화 차트 -->
+          <div class="lg:col-span-6 bg-white dark:bg-emerald-950/50 p-6 sm:p-8 rounded-2xl shadow-sm border border-emerald-100 dark:border-emerald-800 space-y-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center justify-between">
+              <span>대학교 1학기 평균 등록금 비교</span>
+              <span class="text-xs text-slate-400 font-normal">* 2024~2025년 대학알리미 공시 기준</span>
+            </h3>
+
+            <!-- 일반 사립대 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs sm:text-sm font-semibold">
+                <span class="text-slate-700 dark:text-emerald-200">일반 사립 4년제 대학교</span>
+                <span class="text-rose-600 font-bold">약 4,100,000원</span>
+              </div>
+              <div class="w-full bg-slate-100 dark:bg-emerald-900/40 h-6 rounded-full overflow-hidden flex">
+                <div class="bg-rose-500 h-full rounded-full transition-all duration-1000" style="width: 100%;"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 text-right">4년간 총 약 3,200만 원 소요</p>
+            </div>
+
+            <!-- 사립 사이버대 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs sm:text-sm font-semibold">
+                <span class="text-slate-700 dark:text-emerald-200">일반 사립 사이버대학교 (18학점)</span>
+                <span class="text-amber-600 font-bold">약 1,440,000원</span>
+              </div>
+              <div class="w-full bg-slate-100 dark:bg-emerald-900/40 h-6 rounded-full overflow-hidden flex">
+                <div class="bg-amber-400 h-full rounded-full transition-all duration-1000" style="width: 35%;"></div>
+              </div>
+              <p class="text-[11px] text-slate-400 text-right">학점당 8만원 기준, 4년간 약 1,150만 원</p>
+            </div>
+
+            <!-- 국립 방송통신대학교 -->
+            <div class="space-y-1.5 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-700">
+              <div class="flex justify-between text-sm sm:text-base font-bold">
+                <span class="text-knou-primary dark:text-emerald-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-crown text-amber-500"></i> 국립 한국방송통신대학교
+                </span>
+                <span class="text-emerald-700 dark:text-emerald-300 text-lg">약 365,000원</span>
+              </div>
+              <div class="w-full bg-emerald-200 dark:bg-emerald-900 h-6 rounded-full overflow-hidden flex">
+                <div class="bg-knou-primary dark:bg-emerald-500 h-full rounded-full transition-all duration-1000" style="width: 9%;"></div>
+              </div>
+              <div class="flex justify-between text-xs text-emerald-900 dark:text-emerald-200 font-semibold pt-1">
+                <span>사립대의 약 1/11 수준!</span>
+                <span>4년간 총 약 290만 원으로 4년제 정규 학사 취득</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 국가장학금 실부담 시뮬레이터 카드 -->
+          <div class="lg:col-span-6 bg-white dark:bg-emerald-950/50 p-6 sm:p-8 rounded-2xl shadow-sm border border-emerald-100 dark:border-emerald-800 space-y-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">BENEFIT SIMULATOR</span>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">
+                나의 예상 실부담 등록금 계산기
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-emerald-300/70 mt-1">
+                한국장학재단 국가장학금(I유형)과 교내 복지장학금을 반영한 실부담액을 확인하세요.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-emerald-200 mb-1.5">
+                  소득인정액 구간 (소득분위) 선택
+                </label>
+                <select id="incomeBracketSelect" onchange="calculateTuition()" class="w-full p-3 rounded-xl border border-emerald-200 dark:border-emerald-700 bg-[#F7FAF7] dark:bg-emerald-950/60 text-sm font-medium focus:ring-2 focus:ring-emerald-600">
+                  <option value="1_8">기초·차상위 ~ 8구간 (대부분의 국민·직장인 해당) - 전액지원 대상</option>
+                  <option value="9">9구간 (중상위 소득 계층)</option>
+                  <option value="10">10구간 (고소득 계층)</option>
+                  <option value="senior">만 65세 이상 시니어 (실버장학금 대상)</option>
+                  <option value="disabled">장애인 복지카드 소지자 (복지장학금 대상)</option>
+                </select>
+              </div>
+
+              <!-- 계산 결과 디스플레이 박스 -->
+              <div class="p-5 rounded-xl bg-[#F0F7F2] dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 space-y-3">
+                <div class="flex justify-between text-xs text-slate-500 dark:text-emerald-300/80">
+                  <span>기준 등록금 (학기당 인문·사회계열 기준):</span>
+                  <span>354,800 원</span>
+                </div>
+                <div class="flex justify-between text-xs text-emerald-700 dark:text-emerald-300 font-semibold">
+                  <span id="scholarshipDesc">국가장학금 I유형 지원액:</span>
+                  <span id="scholarshipAmount">- 354,800 원</span>
+                </div>
+                <div class="border-t border-emerald-200 dark:border-emerald-800 pt-3 flex justify-between items-baseline">
+                  <span class="text-sm font-bold text-slate-800 dark:text-emerald-100">최종 실제 본인 부담금:</span>
+                  <span id="finalTuition" class="text-2xl font-black text-knou-primary dark:text-emerald-300">0 원</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2 border border-amber-200 dark:border-amber-900/50">
+                <i class="fa-solid fa-circle-info mt-0.5 shrink-0 text-amber-600"></i>
+                <span>국가장학금은 직전 학기 12학점 이수 및 C학점(70점) 이상 취득 시 매 학기 연속 지원됩니다. 신·편입 첫 학기는 성적 기준이 면제됩니다.</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 섹션 5: 전국 13개 지역대학 & 학습관 네트워크 가이드 -->
+    <section id="network" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          <i class="fa-solid fa-location-dot"></i> 전국 캠퍼스 인프라
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+          내 집과 가까운 <span class="text-knou-primary dark:text-emerald-400">전국 13개 지역대학 네트워크</span>
+        </h2>
+        <p class="text-slate-600 dark:text-emerald-200/80 text-sm sm:text-base">
+          방송대는 온라인 대학이지만, 전국 광역시·도 거점에 최첨단 태블릿 시험장, 도서관, 스터디룸을 갖춘 캠퍼스를 운영합니다.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- 지역 선택 버튼 목록 -->
+        <div class="lg:col-span-4 bg-white dark:bg-knou-darkCard p-4 rounded-2xl shadow-sm border border-emerald-100 dark:border-knou-darkBorder space-y-1 max-h-[500px] overflow-y-auto">
+          <div class="text-xs font-bold text-emerald-700/70 dark:text-emerald-400 px-3 py-1 uppercase">지역대학을 선택하세요</div>
+          <div id="regionButtonList" class="space-y-1">
+            <!-- JS로 버튼 목록 자동 생성 -->
+          </div>
+        </div>
+
+        <!-- 선택된 지역대학 상세 정보 카드 -->
+        <div class="lg:col-span-8 bg-white dark:bg-knou-darkCard p-6 sm:p-8 rounded-2xl shadow-sm border border-emerald-100 dark:border-knou-darkBorder">
+          <div id="regionDetailArea" class="space-y-6">
+            <!-- JS로 내용 갱신 -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 섹션 6: 대국민 자주 묻는 질문 (FAQ 아코디언) -->
+    <section id="faq" class="py-16 bg-[#EDF3EE] dark:bg-emerald-950/20 border-t border-emerald-200/80 dark:border-knou-darkBorder">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12 space-y-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+            <i class="fa-solid fa-circle-question"></i> 친절한 궁금증 해결
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+            국민들이 가장 많이 묻는 <span class="text-knou-primary dark:text-emerald-400">방송대 FAQ</span>
+          </h2>
+          <p class="text-slate-600 dark:text-emerald-200/80 text-sm">
+            입학 지원 자격부터 학위의 사회적 공신력, 직장 병행 여부까지 투명하게 알려드립니다.
+          </p>
+        </div>
+
+        <div class="space-y-4" id="faqList">
+          
+          <!-- Q1 -->
+          <div class="faq-item bg-white dark:bg-knou-darkCard rounded-xl border border-emerald-100 dark:border-knou-darkBorder overflow-hidden shadow-sm">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-900 dark:text-white flex justify-between items-center gap-4 hover:text-knou-primary transition">
+              <span class="flex items-center gap-3">
+                <span class="text-knou-accent font-black text-lg">Q1.</span>
+                <span>수능 시험을 보지 않았는데 고등학교 졸업자도 바로 입학할 수 있나요?</span>
+              </span>
+              <i class="fa-solid fa-chevron-down text-emerald-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+              네, 100% 가능합니다. 방송대는 수능(대학수학능력시험) 성적을 전혀 요구하지 않습니다. 
+              고등학교 졸업(예정)자이거나 법령에 의해 동등 이상의 학력(검정고시 합격자 포함)이 인정되는 대한민국 국민이라면 
+              누구나 고교 학교생활기록부(학생부) 성적 또는 출신 고교 내신 서류만으로 신입학에 지원하실 수 있습니다. 
+              전문대 이상 졸업자는 2학년 또는 3학년으로 바로 편입학도 가능합니다.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="faq-item bg-white dark:bg-knou-darkCard rounded-xl border border-emerald-100 dark:border-knou-darkBorder overflow-hidden shadow-sm">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-900 dark:text-white flex justify-between items-center gap-4 hover:text-knou-primary transition">
+              <span class="flex items-center gap-3">
+                <span class="text-knou-accent font-black text-lg">Q2.</span>
+                <span>방송대 졸업 시 취득하는 학위는 일반 4년제 대학교 학위와 법적으로 똑같나요?</span>
+              </span>
+              <i class="fa-solid fa-chevron-down text-emerald-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+              완전히 동일합니다. 방송통신대학교는 <strong>고등교육법 제2조에 명시된 대한민국 공식 국립 4년제 종합대학교</strong>입니다. 
+              졸업 시 일반 4년제 국·사립 대학교와 법적으로 100% 동일한 학사 학위(문학사, 법학사, 이학사, 경영학사 등)가 수여되며, 
+              서울대·연세대·고려대 등 국내외 일반 대학원 및 전문대학원(로스쿨, 의치전원 등) 진학, 공무원 시험 응시, 학사편입 자격이 온전히 주어집니다.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="faq-item bg-white dark:bg-knou-darkCard rounded-xl border border-emerald-100 dark:border-knou-darkBorder overflow-hidden shadow-sm">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-900 dark:text-white flex justify-between items-center gap-4 hover:text-knou-primary transition">
+              <span class="flex items-center gap-3">
+                <span class="text-knou-accent font-black text-lg">Q3.</span>
+                <span>직장인이나 자영업자, 주부도 일/가사와 병행하며 졸업하기 수월한가요?</span>
+              </span>
+              <i class="fa-solid fa-chevron-down text-emerald-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+              실제 방송대 재학생의 70% 이상이 직장인, 개인사업자, 주부 등 생업을 가진 학습자입니다. 
+              모바일 앱(U-KNOU 캠퍼스)을 통해 출퇴근길 지하철, 야간, 주말 등 원하는 시간에 자유롭게 강의를 반복 수강할 수 있습니다. 
+              또한 대면 출석수업에 참여하기 어려운 직장인을 위해 전 과목 온라인 대체 과제물 제출 및 출석대체시험 제도를 폭넓게 보장하고 있습니다.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="faq-item bg-white dark:bg-knou-darkCard rounded-xl border border-emerald-100 dark:border-knou-darkBorder overflow-hidden shadow-sm">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-900 dark:text-white flex justify-between items-center gap-4 hover:text-knou-primary transition">
+              <span class="flex items-center gap-3">
+                <span class="text-knou-accent font-black text-lg">Q4.</span>
+                <span>시험은 어떻게 치러지나요? 반드시 학교 건물에 직접 가야 하나요?</span>
+              </span>
+              <i class="fa-solid fa-chevron-down text-emerald-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+              공정성과 공신력 유지를 위해 중간평가(과제물 또는 출석수업 시험)와 기말평가는 전국 13개 지역대학 및 학습관의 디지털 CBT 전용 고사장에서 태블릿을 이용해 응시합니다. 
+              기존 종이 시험과 달리 학습자가 평일 저녁, 토요일, 일요일 중 본인의 스케줄에 맞는 날짜와 교시를 직접 인터넷으로 사전 예약하여 응시할 수 있어 직장인들의 응시 편의성이 극대화되었습니다.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="faq-item bg-white dark:bg-knou-darkCard rounded-xl border border-emerald-100 dark:border-knou-darkBorder overflow-hidden shadow-sm">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left font-bold text-slate-900 dark:text-white flex justify-between items-center gap-4 hover:text-knou-primary transition">
+              <span class="flex items-center gap-3">
+                <span class="text-knou-accent font-black text-lg">Q5.</span>
+                <span>등록금은 정말 한 학기에 30만원대인가요? 추가 비용이 발생하나요?</span>
+              </span>
+              <i class="fa-solid fa-chevron-down text-emerald-600 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed border-t border-emerald-100 dark:border-knou-darkBorder pt-3">
+              네, 인문·사회계열 기준 한 학기 수업료는 약 35~36만 원 선, 실험·실습이 포함된 자연·교육계열도 약 37~38만 원 선으로 국립대 법정 등록금 규정에 따라 매우 저렴합니다. 
+              입학금은 전면 폐지되었으며 교재비(전자책 또는 종이책 선택 구매 가능) 외에는 학교에 납부하는 숨은 추가 수업료가 전혀 없습니다. 
+              여기에 국가장학금을 신청하시면 대부분의 학생들이 전액 감면 혜택을 받습니다.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 대국민 배움 안내 배너 (CTA) -->
+    <section class="py-16 bg-knou-primary text-white text-center relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-black">
+          "배움에는 나이도, 때도 없습니다"<br>
+          지금 한국방송통신대학교에서 새로운 미래를 시작하세요
+        </h2>
+        <p class="text-emerald-100 text-base sm:text-lg max-w-2xl mx-auto">
+          매년 12월~1월(1학기)과 6월~7월(2학기)에 신·편입생 정시 모집이 진행됩니다.<br>
+          궁금한 점은 언제든 국립 방송대 입학상담센터로 편하게 문의하세요.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 pt-2">
+          <a href="https://www.knou.ac.kr" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-knou-accent hover:bg-knou-accentHover text-white font-extrabold rounded-xl shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 입학지원서 접수처 바로가기
+          </a>
+          <a href="tel:1577-9995" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition flex items-center gap-2">
+            <i class="fa-solid fa-phone"></i> 대국민 입학상담 (1577-9995)
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 대국민 공공 푸터 (다크 에버그린 톤) -->
+  <footer class="bg-[#0A1D15] text-emerald-200/70 py-12 border-t border-emerald-900/60 text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2 text-white font-bold text-lg">
+            <span class="w-7 h-7 bg-emerald-700 text-white rounded flex items-center justify-center text-xs font-black">KNOU</span>
+            국립 한국방송통신대학교
+          </div>
+          <p class="text-emerald-200/80 text-xs leading-relaxed max-w-md">
+            한국방송통신대학교는 고등교육법 제2조에 의해 설립된 4년제 국립 종합원격대학교입니다. 
+            모든 국민의 평생학습권 보장과 고등교육 복지 실현에 기여하고 있습니다.
+          </p>
+          <p class="text-xs text-emerald-400/80">
+            (03087) 서울특별시 종로구 대학로 86 (동숭동) 한국방송통신대학교<br>
+            대표전화: 1577-9995 (평일 09:00 ~ 18:00) · ARS 자동안내 24시간
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-3">주요 연계 포털</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="https://www.knou.ac.kr" target="_blank" class="hover:text-white transition">한국방송통신대학교 대표홈페이지</a></li>
+            <li><a href="https://ucampus.knou.ac.kr" target="_blank" class="hover:text-white transition">U-KNOU 캠퍼스 (학습관리시스템)</a></li>
+            <li><a href="https://oun.knou.ac.kr" target="_blank" class="hover:text-white transition">방송대학TV OUN</a></li>
+            <li><a href="https://prime.knou.ac.kr" target="_blank" class="hover:text-white transition">프라임칼리지 (PRIME College)</a></li>
+            <li><a href="https://library.knou.ac.kr" target="_blank" class="hover:text-white transition">중앙도서관 전자정보관</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-3">국민 권리 및 정보</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="https://www.kosaf.go.kr" target="_blank" class="hover:text-white transition">한국장학재단 국가장학금 신청</a></li>
+            <li><a href="https://www.academyinfo.go.kr" target="_blank" class="hover:text-white transition">대학알리미 정보공시</a></li>
+            <li><a href="#" onclick="openModal('admissionGuideModal')" class="hover:text-white transition">신·편입학 자격 가이드</a></li>
+            <li><a href="https://www.gov.kr" target="_blank" class="hover:text-white transition">정부24 학위증명서 발급</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-emerald-900/60 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-emerald-400/60 gap-4">
+        <div>
+          © Korea National Open University. 본 포털은 대한민국 국민의 알 권리와 평생교육 참여를 돕기 위해 제작된 안내 페이지입니다.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>개인정보처리방침</span>
+          <span>학칙 및 학사규정</span>
+          <span>정보공개청구</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= 모달 팝업 창들 ================= -->
+
+  <!-- 1. 입학 가이드 모달 -->
+  <div id="admissionGuideModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-knou-darkCard rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-emerald-100 dark:border-knou-darkBorder space-y-6">
+      <div class="flex justify-between items-center border-b border-emerald-100 dark:border-knou-darkBorder pb-4">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-graduation-cap text-knou-accent"></i> 국립 방송대 입학전형 친절 안내
+        </h3>
+        <button onclick="closeModal('admissionGuideModal')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-600 dark:text-emerald-100/90">
+        <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800">
+          <h4 class="font-bold text-knou-primary dark:text-emerald-300 mb-1">지원 자격 및 선발 방식</h4>
+          <p class="text-xs sm:text-sm">
+            • <strong>신입학(1학년):</strong> 고등학교 졸업(예정)자, 검정고시 합격자 등 (수능 미응시자도 100% 지원 가능)<br>
+            • <strong>2학년 편입:</strong> 전문대 졸업자 또는 4년제 대학 1학년(30~35학점 이상) 수료자<br>
+            • <strong>3학년 편입:</strong> 전문대 졸업자 또는 4년제 대학 2학년(65~70학점 이상) 수료자, 학점은행제 70학점 이상 취득자
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-2">간단한 4단계 원서접수 절차</h4>
+          <ol class="space-y-2 list-decimal list-inside text-xs sm:text-sm">
+            <li><strong>인터넷 원서접수:</strong> 방송대 공식 입학홈페이지(knou.ac.kr)에서 기본 인적사항 입력</li>
+            <li><strong>서류 제출:</strong> 정부24 온라인 연동 또는 등기우편/방문 제출 (고교 졸업증명서, 성적증명서 등)</li>
+            <li><strong>합격자 발표:</strong> 홈페이지 조회 및 개별 문자 통보</li>
+            <li><strong>등록금 납부:</strong> 약 30만 원대 등록금 납부 (국가장학금 신청 시 0원 처리)</li>
+          </ol>
+        </div>
+
+        <div class="p-3 bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 rounded-lg text-xs border border-amber-200 dark:border-amber-900/50">
+          <i class="fa-solid fa-lightbulb mr-1"></i> 타 대학에 학적이 있는 분도 이중학적으로 동시 등록이 가능합니다. (직장 재직 여부 무관)
+        </div>
+      </div>
+
+      <div class="border-t border-emerald-100 dark:border-knou-darkBorder pt-4 flex justify-end gap-2">
+        <button onclick="closeModal('admissionGuideModal')" class="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-emerald-200 hover:bg-emerald-50 dark:hover:bg-emerald-950 rounded-lg">닫기</button>
+        <a href="https://www.knou.ac.kr" target="_blank" class="px-5 py-2 text-xs font-bold text-white bg-knou-accent hover:bg-knou-accentHover rounded-lg">입학지원 페이지 이동</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 방송대 로스쿨 심층 모달 -->
+  <div id="issueLawModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-knou-darkCard rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-emerald-100 dark:border-knou-darkBorder space-y-6">
+      <div class="flex justify-between items-center border-b border-emerald-100 dark:border-knou-darkBorder pb-4">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-amber-600"></i> 방송대 온라인 로스쿨 심층 쟁점 분석
+        </h3>
+        <button onclick="closeModal('issueLawModal')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-600 dark:text-emerald-100/90 leading-relaxed">
+        <h4 class="font-bold text-slate-900 dark:text-white text-base">왜 방송대 로스쿨 설치가 끊임없이 논의될까요?</h4>
+        <p>
+          2017년 사법시험이 완전 폐지된 이후 현행 법학전문대학원(로스쿨) 제도가 유일한 법조인 양성 통로가 되었습니다. 
+          그러나 기존 로스쿨은 높은 등록금(연 1,000~2,000만 원)과 주간 전일제 수업으로 인해 
+          경제적 여유가 없거나 직장·생업을 포기할 수 없는 국민들에게는 사실상 진입 장벽이 되었습니다.
+        </p>
+
+        <div class="bg-amber-50 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 space-y-2">
+          <div class="font-bold text-amber-800 dark:text-amber-300">특별법안 핵심 구상 내용</div>
+          <ul class="list-disc list-inside text-xs sm:text-sm space-y-1">
+            <li>학비: 기존 사립 로스쿨의 3분의 1 이하 저렴한 국립대 수준</li>
+            <li>수업 방식: 온라인 원격 이론 수업 + 야간/주말 오프라인 실무 클리닉</li>
+            <li>입학 전형: 고비용 LEET(법학적성시험) 의무 대신 학부 성적과 사회 경력 종합 반영</li>
+            <li>교육 기간: 직장인 학습 부담을 고려한 3.5년~4년 유연제 도입</li>
+          </ul>
+        </div>
+
+        <h4 class="font-bold text-slate-900 dark:text-white text-base">향후 과제 및 전망</h4>
+        <p>
+          변호사 단체 및 기존 로스쿨 협의회의 반발, 변호사시험 합격률 조정 문제 등 법조계 내부의 이해관계 조율이 핵심 과제로 남아있습니다. 
+          하지만 국민의 보편적 사법서비스 접근권과 계층이동 사다리 복원이라는 시대적 명분으로 인해 정기국회 때마다 국민적 관심이 집중되고 있습니다.
+        </p>
+      </div>
+
+      <div class="border-t border-emerald-100 dark:border-knou-darkBorder pt-4 flex justify-end">
+        <button onclick="closeModal('issueLawModal')" class="px-5 py-2 text-xs font-bold text-white bg-knou-primary hover:bg-knou-secondary rounded-lg">확인 및 닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 학과 상세 안내 모달 -->
+  <div id="deptDetailModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-knou-darkCard rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-emerald-100 dark:border-knou-darkBorder space-y-6">
+      <div class="flex justify-between items-center border-b border-emerald-100 dark:border-knou-darkBorder pb-4">
+        <div>
+          <span id="modalDeptCollege" class="text-xs font-bold text-knou-secondary dark:text-emerald-400"></span>
+          <h3 id="modalDeptName" class="text-2xl font-bold text-slate-900 dark:text-white"></h3>
+        </div>
+        <button onclick="closeModal('deptDetailModal')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-600 dark:text-emerald-100/90">
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-bullseye text-knou-accent mr-1.5"></i> 학과 소개 및 교육 목표</h4>
+          <p id="modalDeptDesc" class="leading-relaxed"></p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#F0F7F2] dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800">
+          <h4 class="font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-certificate text-amber-500 mr-1.5"></i> 취득 가능 전문 자격증 및 면허</h4>
+          <div id="modalDeptCerts" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-1"><i class="fa-solid fa-briefcase text-emerald-600 mr-1.5"></i> 졸업 후 진로 및 활약 분야</h4>
+          <p id="modalDeptCareers" class="leading-relaxed"></p>
+        </div>
+      </div>
+
+      <div class="border-t border-emerald-100 dark:border-knou-darkBorder pt-4 flex justify-between items-center">
+        <span class="text-xs text-slate-400">* 자세한 교육과정은 입학 홈페이지에서 확인 가능합니다.</span>
+        <button onclick="closeModal('deptDetailModal')" class="px-5 py-2 text-xs font-bold text-white bg-knou-primary hover:bg-knou-secondary rounded-lg">창 닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 연혁 모달 -->
+  <div id="historyModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-knou-darkCard rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-emerald-100 dark:border-knou-darkBorder space-y-6">
+      <div class="flex justify-between items-center border-b border-emerald-100 dark:border-knou-darkBorder pb-4">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-clock-rotate-left text-knou-primary dark:text-emerald-400"></i> 국립 한국방송통신대학교 50여 년의 발자취
+        </h3>
+        <button onclick="closeModal('historyModal')" class="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-emerald-100/90">
+        <div class="border-l-2 border-emerald-600 pl-4 space-y-3">
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">1972년 3월</span>
+            <p class="font-medium text-slate-900 dark:text-white">서울대학교 부설 방송통신대학으로 개교 (대한민국 최초 원격고등교육기관)</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">1982년 2월</span>
+            <p class="font-medium text-slate-900 dark:text-white">서울대학교에서 분리 및 국립 5년제 한국방송통신대학으로 독립</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">1993년 3월</span>
+            <p class="font-medium text-slate-900 dark:text-white">국립 4년제 종합대학교 '한국방송통신대학교'로 개칭 및 학사학위 수여 체계 확립</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">1996년 9월</span>
+            <p class="font-medium text-slate-900 dark:text-white">자체 전용 위성방송 '방송대학TV(OUN)' 개국</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">2001년 / 2010년</span>
+            <p class="font-medium text-slate-900 dark:text-white">원격 평생교육 대학원 개원 및 프라임칼리지(PRIME College) 설치</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">2022년 3월</span>
+            <p class="font-medium text-slate-900 dark:text-white">개교 50주년 기념식 거행 및 100년을 향한 'KNOU 2.0' 미래 비전 선포</p>
+          </div>
+          <div>
+            <span class="font-bold text-emerald-700 dark:text-emerald-400">현재</span>
+            <p class="font-medium text-slate-900 dark:text-white">전국 디지털 태블릿 스마트 시험(CBT) 전면 정착 및 AI 에듀테크 선도</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-emerald-100 dark:border-knou-darkBorder pt-4 flex justify-end">
+        <button onclick="closeModal('historyModal')" class="px-5 py-2 text-xs font-bold text-white bg-knou-primary hover:bg-knou-secondary rounded-lg">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자바스크립트 로직 -->
+  <script>
+    // ----------------------------------------------------
+    // 학과 데이터베이스 (24개 전체 학과 상세 데이터)
+    // ----------------------------------------------------
+    const departmentsData = [
+      // 인문과학대학 (5)
+      {
+        id: 'korean',
+        college: 'HUMANITIES',
+        collegeName: '인문과학대학',
+        name: '국어국문학과',
+        badge: '전통 인기학과',
+        desc: '우리말과 문학의 깊이 있는 탐구를 통해 창의적 언어 감각과 문화적 소양을 함양합니다.',
+        certs: ['한국어교원 2급', '독서지도사', '논술지도사'],
+        careers: '언론·방송, 문예창작 작가, 한국어 강사(다문화/해외), 출판 기획, 공무원'
+      },
+      {
+        id: 'english',
+        college: 'HUMANITIES',
+        collegeName: '인문과학대학',
+        name: '영어영문학과',
+        badge: '어학 역량 강화',
+        desc: '실용 영어 구사력과 영미 문학 및 문화의 폭넓은 이해를 결합한 글로벌 인재를 양성합니다.',
+        certs: ['관광통역안내사', '번역능력인정', 'TESOL 연계', '영어지도사'],
+        careers: '무역 상사, 외국계 기업, 통·번역 프리랜서, 어학원 강사, 관광업계'
+      },
+      {
+        id: 'chinese',
+        college: 'HUMANITIES',
+        collegeName: '인문과학대학',
+        name: '중어중문학과',
+        badge: '중국 비즈니스',
+        desc: '중국어 회화·문법은 물론 중국의 정치·경제·사회 트렌드를 포괄적으로 학습합니다.',
+        certs: ['관광통역안내사(중국어)', 'HSK 고득점 연계', '중국어지도사'],
+        careers: '대중국 무역·통상, 여행사, 물류유통 기업, 외교통상 공공기관'
+      },
+      {
+        id: 'french',
+        college: 'HUMANITIES',
+        collegeName: '인문과학대학',
+        name: '프랑스언어문화학과',
+        badge: '유럽 인문문화',
+        desc: '프랑스어 습득과 프랑코포니(프랑스어권)의 예술, 철학, 문화를 깊이 있게 학습합니다.',
+        certs: ['DELF/DALF 연계', '관광통역안내사(불어)', '프랑스어 통·번역'],
+        careers: '문화예술 기획, 패션·와인·요리 산업, 유럽 관련 공공교류, 번역가'
+      },
+      {
+        id: 'japanese',
+        college: 'HUMANITIES',
+        collegeName: '인문과학대학',
+        name: '일본학과',
+        badge: '글로벌 교류',
+        desc: '일본어 능력 배양과 함께 일본의 역사, 사회, 비즈니스 관행을 심층 연구합니다.',
+        certs: ['관광통역안내사(일본어)', 'JLPT N1 연계', 'JPT 우수자'],
+        careers: '일본계 기업 취업, 한일 교역 무역회사, 관광 가이드, 번역가'
+      },
+
+      // 사회과학대학 (8)
+      {
+        id: 'law',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '법학과',
+        badge: '국민 법학교육 요람',
+        desc: '헌법, 민법, 형법, 노동법, 행정법 등 실생활 및 공직 진출에 필수적인 법률 지식을 교육합니다.',
+        certs: ['공인노무사', '법무사', '감정평가사', '행정사', '손해사정사'],
+        careers: '기업 법무팀, 공공기관 및 법원·검찰직 공무원, 법무법인 사무직, 로스쿨 진학'
+      },
+      {
+        id: 'admin',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '행정학과',
+        badge: '공직 진출 유력',
+        desc: '국가 정책 수립과 공공조직 관리, 정부 혁신 역량을 갖춘 정책 전문 인력을 배출합니다.',
+        certs: ['행정사', '정책분석평가사', '공인노무사'],
+        careers: '중앙부처 및 지방직 공무원, 공기업·공공기관, 정책연구원, 비영리 NGO 단체'
+      },
+      {
+        id: 'econ',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '경제학과',
+        badge: '경제 트렌드 분석',
+        desc: '미시·거시경제 이론과 금융시장, 국제무역 동향을 분석하는 안목을 키웁니다.',
+        certs: ['공인회계사(CPA)', '세무사', '금융투자분석사', '자산관리사(FP)'],
+        careers: '시중은행, 증권·자산운용사, 공기업, 기업 전략기획실, 금융 공기업'
+      },
+      {
+        id: 'biz',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '경영학과',
+        badge: '최다 재학생',
+        desc: '마케팅, 회계, 인사조직, 재무, 생산관리 등 기업 경영의 전 과정을 실무 중심으로 학습합니다.',
+        certs: ['경영지도사', '공인회계사(CPA)', '세무사', '전산세무회계', '물류관리사'],
+        careers: '일반 대기업·중소기업 경영관리, 스타트업 창업, 금융권, 컨설팅 펌'
+      },
+      {
+        id: 'trade',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '무역학과',
+        badge: '해외무역·e커머스',
+        desc: '국제물류, 통상협정, 글로벌 e-커머스 수출입 실무를 포괄하는 종합 통상 전문가를 육성합니다.',
+        certs: ['관세사', '국제무역사', '무역영어 1급', '유통관리사', '물류관리사'],
+        careers: '관세법인, 수출입 무역상사, 복합운송물류기업, 해외영업팀'
+      },
+      {
+        id: 'media',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '미디어영상학과',
+        badge: '크리에이터·영상',
+        desc: '영상 기획 및 제작, 디지털 콘텐츠 마케팅, 방송 스피치, 광고 홍보를 융합 학습합니다.',
+        certs: ['멀티미디어콘텐츠제작전문가', '무대예술전문인', '컴퓨터그래픽스운용기능사'],
+        careers: '방송국 PD, 유튜브 크리에이터, 광고기획사(AE), 디지털마케팅 전문가'
+      },
+      {
+        id: 'tourism',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '관광학과',
+        badge: 'K-관광 MICE',
+        desc: '호텔·항공·외식·MICE 산업 및 지역 축제 관광기획 전문가를 체계적으로 양성합니다.',
+        certs: ['관광통역안내사', '국내여행안내사', '호텔경영사', '컨벤션기획사'],
+        careers: '항공사, 특급호텔, 여행사, 컨벤션 센터, 지자체 관광재단'
+      },
+      {
+        id: 'welfare',
+        college: 'SOCIAL',
+        collegeName: '사회과학대학',
+        name: '사회복지학과',
+        badge: '시니어·인생2막 최선호',
+        desc: '사회복지 정책 및 실천기술, 노인·아동·장애인 복지 등 100세 시대 따뜻한 복지사를 양성합니다.',
+        certs: ['사회복지사 2급(무시험 취득)', '사회복지사 1급 응시자격', '건강가정사'],
+        careers: '종합사회복지관, 노인요양시설, 아동보호기관, 사회복지전담공무원'
+      },
+
+      // 자연과학대학 (5)
+      {
+        id: 'cs',
+        college: 'NATURAL',
+        collegeName: '자연과학대학',
+        name: '컴퓨터과학과',
+        badge: 'SW 개발자 육성',
+        desc: '알고리즘, 자료구조, 인공지능(AI), 웹/앱 풀스택 프로그래밍, 클라우드 컴퓨팅을 종합 교육합니다.',
+        certs: ['정보처리기사', '빅데이터분석기사', 'SQLD/SQLP', '정보보안기사'],
+        careers: 'IT 기업 백엔드/프론트엔드 개발자, 시스템 엔지니어, 데이터 엔지니어'
+      },
+      {
+        id: 'data',
+        college: 'NATURAL',
+        collegeName: '자연과학대학',
+        name: '통계·데이터과학과',
+        badge: '빅데이터 분석',
+        desc: '확률 통계 이론을 바탕으로 Python, R, 머신러닝 모델을 활용한 비즈니스 데이터 분석가를 양성합니다.',
+        certs: ['사회조사분석사 2급', '빅데이터분석기사', '데이터분석준전문가(ADsP)'],
+        careers: '빅데이터 분석가, 금융·마케팅 애널리스트, 통계청 공무원, AI 리서처'
+      },
+      {
+        id: 'health',
+        college: 'NATURAL',
+        collegeName: '자연과학대학',
+        name: '보건환경학과',
+        badge: '환경·산업보건',
+        desc: '산업안전, 작업환경측정, 대기·수질환경보전, 보건관리학을 융합 교육합니다.',
+        certs: ['산업위생관리기사', '대기/수질환경기사', '산업안전기사', '위생사'],
+        careers: '기업 안전보건관리자, 환경엔지니어링사, 보건직 공무원, 산업안전보건공단'
+      },
+      {
+        id: 'agri',
+        college: 'NATURAL',
+        collegeName: '자연과학대학',
+        name: '농학과',
+        badge: '귀농귀촌·스마트팜',
+        desc: '식물육종, 유기농업, 토양학, 스마트팜 농업기술 및 산림 치유를 배웁니다.',
+        certs: ['유기농업기사', '종자기사', '식물보호기사', '산림치유지도사', '손해평가사'],
+        careers: '스마트팜 농업법인, 농업기술센터, 농산물품질관리원, 귀농·귀촌 창업'
+      },
+      {
+        id: 'living',
+        college: 'NATURAL',
+        collegeName: '자연과학대학',
+        name: '생활과학부',
+        badge: '가정·식품영양·의류',
+        desc: '가정복지상담, 식품영양(영양사 양성), 의류패션 등 생활의 질을 높이는 3개 세부전공을 운영합니다.',
+        certs: ['영양사', '위생사', '건강가정사', '패션디자인산업기사'],
+        careers: '병원 및 학교 영양사, 식품기업 품질관리, 패션MD, 건강가정지원센터'
+      },
+
+      // 교육과학대학 (4)
+      {
+        id: 'edu',
+        college: 'EDUCATION',
+        collegeName: '교육과학대학',
+        name: '교육학과',
+        badge: '평생교육 전문가',
+        desc: '교육심리, 교수설계, 교육철학, 평생교육론을 통해 전 생애에 걸친 교육 기획자를 양성합니다.',
+        certs: ['평생교육사 2급(무시험 취득)', '직업상담사 2급'],
+        careers: '기업 교육담당(HRD), 지자체 평생학습관, 인재개발원, 교육 출판사'
+      },
+      {
+        id: 'youth',
+        college: 'EDUCATION',
+        collegeName: '교육과학대학',
+        name: '청소년교육과',
+        badge: '청소년 지도·상담',
+        desc: '위기 청소년 상담, 청소년 활동 프로그램 개발, 학교폭력 예방 전문가를 양성합니다.',
+        certs: ['청소년지도사 2급', '청소년상담사 3급'],
+        careers: '청소년수련관, 청소년상담복지센터, 대안학교 지도교사, 방과후 아카데미'
+      },
+      {
+        id: 'early_child',
+        college: 'EDUCATION',
+        collegeName: '교육과학대학',
+        name: '유아교육과',
+        badge: '유치원 정교사 2급',
+        desc: '놀이 중심 유아 발달과 누리과정을 바탕으로 국공립·사립 유치원 교사를 양성합니다.',
+        certs: ['유치원 2급 정교사 자격증', '보육교사 2급'],
+        careers: '국공립·사립 유치원 교사, 국공립 어린이집 원무, 유아교육 전문 연구원'
+      },
+      {
+        id: 'culture',
+        college: 'EDUCATION',
+        collegeName: '교육과학대학',
+        name: '문화교양학과',
+        badge: '인문교양·힐링',
+        desc: '철학, 역사, 문학, 생태학, 예술비평 등 인생의 깊이를 더해주는 융합 교양의 산실입니다.',
+        certs: ['평생교육사 연계', '독서문화지도사', '문화예술기획자'],
+        careers: '문화예술공간 큐레이터, 시민단체 기획자, 인문학 강사, 인생2막 작가'
+      },
+
+      // 프라임칼리지 첨단융합학부 (2)
+      {
+        id: 'prime_eng',
+        college: 'PRIME',
+        collegeName: '프라임칼리지',
+        name: '첨단공학부 (메카트로닉스/산업공학)',
+        badge: '100% 온라인 공학사',
+        desc: '스마트팩토리, 로봇공학, 제어계측, 품질경영을 비대면 온라인으로 학습하는 첨단 공학사 과정입니다.',
+        certs: ['메카트로닉스기사', '품질경영기사', '기계설계기사'],
+        careers: '스마트제조 공장 엔지니어, 품질관리팀, 로봇 자동화 기업, 방위산업체'
+      },
+      {
+        id: 'prime_biz',
+        college: 'PRIME',
+        collegeName: '프라임칼리지',
+        name: '융합경영학부 (세무회계/신마케팅)',
+        badge: '재직자 맞춤형 학위',
+        desc: '일과 학습을 병행하는 직장인을 위해 핀테크, 빅데이터 마케팅, 전산세무회계를 집중 교육합니다.',
+        certs: ['전산세무 1급', '경영지도사', 'ERP정보관리사'],
+        careers: '중견·중소기업 회계·재무팀, 온라인 커머스 마케터, 세무사 사무원'
+      }
+    ];
+
+    // ----------------------------------------------------
+    // 전국 13개 지역대학 데이터베이스
+    // ----------------------------------------------------
+    const regionalCampuses = [
+      {
+        id: 'seoul',
+        name: '서울지역대학 (본부/성수)',
+        address: '서울특별시 성동구 아차산로 12 (성수동1가)',
+        subCenters: '남부학습센터(목동), 북부학습센터(미아), 서부학습센터(은평)',
+        phone: '02-840-3700',
+        facilities: '대규모 태블릿 CBT 고사장(4개실), 도서관 및 멀티미디어실, 북카페, 스터디룸 12개실, 대강당',
+        transport: '지하철 2호선 뚝섬역 8번 출구 도보 1분'
+      },
+      {
+        id: 'incheon',
+        name: '인천지역대학',
+        address: '인천광역시 남동구 남동대로 215번길 81',
+        subCenters: '부천시 학습관',
+        phone: '032-421-4400',
+        facilities: 'CBT 고사장, 종합열람실, 학생회 스터디룸, 수유실, 휴게 카페',
+        transport: '수인분당선 남동인더스파크역 2번 출구'
+      },
+      {
+        id: 'gyeonggi',
+        name: '경기지역대학 (수원)',
+        address: '경기도 수원시 권선구 호매실로 46-16',
+        subCenters: '성남, 안양, 안산, 평택, 구리·남양주 시·군 학습관',
+        phone: '031-240-2000',
+        facilities: '최신 디지털 스마트 평가장, 전산실습실, 그룹 스터디룸, 야외 휴게정원',
+        transport: '수원역에서 시내버스 환승 15분 거리'
+      },
+      {
+        id: 'gangwon',
+        name: '강원지역대학 (춘천)',
+        address: '강원특별자치도 춘천시 방송길 51',
+        subCenters: '원주, 강릉, 속초, 삼척, 태백 시·군 학습관',
+        phone: '033-255-0010',
+        facilities: 'CBT 시험장, 열람실, 화상 강의실, 스터디룸',
+        transport: '경춘선 남춘천역 도보 10분'
+      },
+      {
+        id: 'daejeon',
+        name: '대전·충남지역대학',
+        address: '대전광역시 유성구 온천로 53 (봉명동)',
+        subCenters: '천안·아산, 서산·당진, 논산, 보령 학습관',
+        phone: '042-822-8000',
+        facilities: 'CBT 전용 시험장 2개실, 도서관, 영상 강의실, 동아리방',
+        transport: '대전지하철 1호선 유성온천역 7번 출구'
+      },
+      {
+        id: 'chungbuk',
+        name: '충북지역대학 (청주)',
+        address: '충청북도 청주시 서원구 1순환로 1063번길 73',
+        subCenters: '충주, 제천, 옥천, 영동 학습관',
+        phone: '043-268-2000',
+        facilities: '디지털 평가실, 전산실, 자율학습실, 북카페',
+        transport: '청주시외버스터미널 인근 시내버스 10분'
+      },
+      {
+        id: 'gwangju',
+        name: '광주·전남지역대학',
+        address: '광주광역시 광산구 첨단중앙로 170번길 70',
+        subCenters: '목포, 여수, 순천, 나주, 해남 학습관',
+        phone: '062-970-0000',
+        facilities: '대형 태블릿 고사장, 도서관, 모바일 스튜디오, 세미나실',
+        transport: '광주 첨단지구 정부광주지방합동청사 옆'
+      },
+      {
+        id: 'jeonbuk',
+        name: '전북지역대학 (전주)',
+        address: '전북특별자치도 전주시 덕진구 태진로 39',
+        subCenters: '익산, 군산, 정읍, 남원 학습관',
+        phone: '063-270-8000',
+        facilities: 'CBT 고사장, 도서관 및 자료실, 학생 자치 스터디룸',
+        transport: '전주역 및 고속버스터미널 연계 버스 10분'
+      },
+      {
+        id: 'daegu',
+        name: '대구·경북지역대학',
+        address: '대구광역시 달서구 달구벌대로 1095',
+        subCenters: '포항, 구미, 안동, 경주, 김천, 상주, 영주 학습관',
+        phone: '053-550-2000',
+        facilities: '최첨단 CBT 센터, 전자도서관, 학생 휴게라운지, 스터디 라운지',
+        transport: '대구도시철도 2호선 계명대역 1번 출구'
+      },
+      {
+        id: 'busan',
+        name: '부산지역대학',
+        address: '부산광역시 북구 시랑로 132번길 15',
+        subCenters: '양산, 김해 학습관 연계',
+        phone: '051-361-9000',
+        facilities: 'CBT 평가장 3실, 중앙열람실, 스터디룸, 체육시설',
+        transport: '부산지하철 2호선 구명역/구포역 인근'
+      },
+      {
+        id: 'ulsan',
+        name: '울산지역대학',
+        address: '울산광역시 남구 옥현로 129',
+        subCenters: '울주군 학습 지원 센터',
+        phone: '052-277-2000',
+        facilities: 'CBT 고사장, 정보화 교육실, 도서실, 휴게실',
+        transport: '문수경기장 및 울산대학교 인근 버스편 다수'
+      },
+      {
+        id: 'gyeongnam',
+        name: '경남지역대학 (진주/창원)',
+        address: '경상남도 진주시 진주대로 799번길 18 (창원학습관: 창원시 의창구)',
+        subCenters: '창원학습관, 마산, 김해, 통영, 거제 학습관',
+        phone: '055-752-0010',
+        facilities: 'CBT 시험장, 멀티미디어실, 스터디룸, 휴게실',
+        transport: '진주고속버스터미널 도보 10분 거리'
+      },
+      {
+        id: 'jeju',
+        name: '제주지역대학',
+        address: '제주특별자치도 제주시 청사로 63',
+        subCenters: '서귀포시 학습관',
+        phone: '064-741-8000',
+        facilities: '태블릿 CBT 고사장, 자율학습실, 영상강의실, 도서실',
+        transport: '제주도청 및 제주정부합동청사 인근 도보 3분'
+      }
+    ];
+
+    // 현재 선택된 상태 변수
+    let currentCollegeFilter = 'ALL';
+    let currentTagFilter = '';
+    let selectedRegionId = 'seoul';
+
+    // ----------------------------------------------------
+    // 초기화 함수
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDepartments();
+      renderRegionButtons();
+      renderRegionDetail(selectedRegionId);
+      calculateTuition();
+
+      // 다크모드 설정 확인
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+        updateThemeIcon(true);
+      }
+    });
+
+    // ----------------------------------------------------
+    // 학과 렌더링 및 필터링
+    // ----------------------------------------------------
+    function renderDepartments() {
+      const grid = document.getElementById('departmentGrid');
+      const noResults = document.getElementById('noDeptResults');
+      const searchText = document.getElementById('deptSearchInput').value.trim().toLowerCase();
+
+      const filtered = departmentsData.filter(dept => {
+        // 단과대 필터
+        if (currentCollegeFilter !== 'ALL' && dept.college !== currentCollegeFilter) {
+          return false;
+        }
+        // 자격증 태그 빠른 필터
+        if (currentTagFilter && !dept.certs.some(c => c.includes(currentTagFilter))) {
+          return false;
+        }
+        // 검색어 필터 (학과명, 설명, 자격증, 진로)
+        if (searchText) {
+          const matchName = dept.name.toLowerCase().includes(searchText);
+          const matchDesc = dept.desc.toLowerCase().includes(searchText);
+          const matchCerts = dept.certs.some(c => c.toLowerCase().includes(searchText));
+          const matchCareers = dept.careers.toLowerCase().includes(searchText);
+          if (!matchName && !matchDesc && !matchCerts && !matchCareers) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      grid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        filtered.forEach(dept => {
+          const certsHtml = dept.certs.map(c => `
+            <span class="px-2 py-0.5 rounded text-[11px] bg-[#EAF0EC] dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-200 font-medium border border-emerald-200 dark:border-emerald-800">
+              ${c}
+            </span>
+          `).join('');
+
+          const card = document.createElement('div');
+          card.className = "bg-white dark:bg-knou-darkCard rounded-2xl p-5 border border-emerald-100 dark:border-knou-darkBorder shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-600 transition duration-200 flex flex-col justify-between group";
+          card.innerHTML = `
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2">
+                <span class="text-xs font-semibold text-knou-secondary dark:text-emerald-400">${dept.collegeName}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                  ${dept.badge}
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-knou-primary dark:group-hover:text-emerald-400 transition">
+                ${dept.name}
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-emerald-100/80 line-clamp-2 leading-relaxed">
+                ${dept.desc}
+              </p>
+              <div class="pt-2">
+                <div class="text-[11px] font-bold text-emerald-800/70 dark:text-emerald-400 mb-1.5 flex items-center gap-1">
+                  <i class="fa-solid fa-certificate text-amber-500"></i> 취득 가능 자격증:
+                </div>
+                <div class="flex flex-wrap gap-1">
+                  ${certsHtml}
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 mt-4 border-t border-emerald-50 dark:border-knou-darkBorder flex justify-between items-center">
+              <span class="text-xs text-slate-400 dark:text-emerald-300/60 truncate max-w-[170px]" title="${dept.careers}">진로: ${dept.careers}</span>
+              <button onclick="openDeptModal('${dept.id}')" class="text-xs font-bold text-knou-secondary dark:text-emerald-400 hover:underline flex items-center gap-1 shrink-0">
+                상세보기 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    function selectCollege(collegeCode) {
+      currentCollegeFilter = collegeCode;
+      currentTagFilter = '';
+      
+      // 탭 스타일 갱신
+      document.querySelectorAll('.college-tab').forEach(btn => {
+        btn.classList.remove('active', 'bg-knou-primary', 'text-white');
+        btn.classList.add('bg-[#EAF0EC]', 'dark:bg-emerald-950/50', 'text-emerald-900', 'dark:text-emerald-200');
+      });
+      event.target.classList.add('active', 'bg-knou-primary', 'text-white');
+      event.target.classList.remove('bg-[#EAF0EC]', 'dark:bg-emerald-950/50', 'text-emerald-900', 'dark:text-emerald-200');
+
+      renderDepartments();
+    }
+
+    function quickFilterTag(tagName) {
+      currentTagFilter = tagName;
+      document.getElementById('deptSearchInput').value = '';
+      renderDepartments();
+    }
+
+    function resetDeptFilter() {
+      currentTagFilter = '';
+      currentCollegeFilter = 'ALL';
+      document.getElementById('deptSearchInput').value = '';
+
+      document.querySelectorAll('.college-tab').forEach((btn, idx) => {
+        if (idx === 0) {
+          btn.classList.add('active', 'bg-knou-primary', 'text-white');
+          btn.classList.remove('bg-[#EAF0EC]', 'dark:bg-emerald-950/50', 'text-emerald-900', 'dark:text-emerald-200');
+        } else {
+          btn.classList.remove('active', 'bg-knou-primary', 'text-white');
+          btn.classList.add('bg-[#EAF0EC]', 'dark:bg-emerald-950/50', 'text-emerald-900', 'dark:text-emerald-200');
+        }
+      });
+
+      renderDepartments();
+    }
+
+    function filterDepartments() {
+      currentTagFilter = '';
+      renderDepartments();
+    }
+
+    function openDeptModal(deptId) {
+      const dept = departmentsData.find(d => d.id === deptId);
+      if (!dept) return;
+
+      document.getElementById('modalDeptCollege').textContent = dept.collegeName;
+      document.getElementById('modalDeptName').textContent = dept.name;
+      document.getElementById('modalDeptDesc').textContent = dept.desc;
+      document.getElementById('modalDeptCareers').textContent = dept.careers;
+
+      const certsContainer = document.getElementById('modalDeptCerts');
+      certsContainer.innerHTML = dept.certs.map(c => `
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          <i class="fa-solid fa-check text-[10px] mr-1 text-emerald-600"></i>${c}
+        </span>
+      `).join('');
+
+      openModal('deptDetailModal');
+    }
+
+    // ----------------------------------------------------
+    // 등록금 및 장학금 시뮬레이터 로직
+    // ----------------------------------------------------
+    function calculateTuition() {
+      const select = document.getElementById('incomeBracketSelect');
+      const val = select.value;
+      const baseTuition = 354800; // 인문·사회계열 1학기 기본 등록금
+      
+      let scholarship = 0;
+      let desc = "국가장학금 I유형 지원액:";
+
+      if (val === '1_8') {
+        scholarship = 354800;
+        desc = "국가장학금(기초~8구간 전액지원):";
+      } else if (val === '9') {
+        scholarship = 150000;
+        desc = "국가장학금(9구간 부분지원):";
+      } else if (val === '10') {
+        scholarship = 0;
+        desc = "국가장학금(10구간 미지원 대상):";
+      } else if (val === 'senior') {
+        scholarship = baseTuition * 0.5; // 실버장학금 50% 감면
+        desc = "교내 실버장학금(만65세이상 50%감면):";
+      } else if (val === 'disabled') {
+        scholarship = baseTuition; // 중증장애 전액 면제 등
+        desc = "교내 장애인 나눔복지장학금(전액지원):";
+      }
+
+      const finalAmount = Math.max(0, baseTuition - scholarship);
+
+      document.getElementById('scholarshipDesc').textContent = desc;
+      document.getElementById('scholarshipAmount').textContent = scholarship > 0 ? `- ${scholarship.toLocaleString()} 원` : '0 원';
+      document.getElementById('finalTuition').textContent = `${finalAmount.toLocaleString()} 원`;
+    }
+
+    // ----------------------------------------------------
+    // 전국 지역대학 렌더링 로직
+    // ----------------------------------------------------
+    function renderRegionButtons() {
+      const container = document.getElementById('regionButtonList');
+      container.innerHTML = regionalCampuses.map(campus => `
+        <button 
+          onclick="selectRegion('${campus.id}')" 
+          id="btn-region-${campus.id}"
+          class="region-btn w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-between ${campus.id === selectedRegionId ? 'bg-knou-primary text-white shadow-sm' : 'hover:bg-[#EAF0EC] dark:hover:bg-emerald-950/60 text-slate-700 dark:text-emerald-200'}"
+        >
+          <span><i class="fa-solid fa-building-columns mr-2 opacity-70"></i>${campus.name}</span>
+          <i class="fa-solid fa-chevron-right text-[10px] opacity-70"></i>
+        </button>
+      `).join('');
+    }
+
+    function selectRegion(campusId) {
+      selectedRegionId = campusId;
+      document.querySelectorAll('.region-btn').forEach(btn => {
+        btn.classList.remove('bg-knou-primary', 'text-white', 'shadow-sm');
+        btn.classList.add('hover:bg-[#EAF0EC]', 'dark:hover:bg-emerald-950/60', 'text-slate-700', 'dark:text-emerald-200');
+      });
+      const activeBtn = document.getElementById(`btn-region-${campusId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-knou-primary', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('hover:bg-[#EAF0EC]', 'dark:hover:bg-emerald-950/60', 'text-slate-700', 'dark:text-emerald-200');
+      }
+      renderRegionDetail(campusId);
+    }
+
+    function renderRegionDetail(campusId) {
+      const campus = regionalCampuses.find(c => c.id === campusId);
+      if (!campus) return;
+
+      const detailArea = document.getElementById('regionDetailArea');
+      detailArea.innerHTML = `
+        <div class="border-b border-emerald-100 dark:border-knou-darkBorder pb-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">국립 거점 캠퍼스</span>
+            <span class="text-xs text-slate-400 dark:text-emerald-300/60">전국 13개 지역대학 중 하나</span>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white">${campus.name}</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="p-4 rounded-xl bg-[#F0F7F2] dark:bg-emerald-950/60 space-y-1 border border-emerald-100 dark:border-emerald-800">
+            <div class="font-bold text-slate-700 dark:text-emerald-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-map-pin text-rose-500"></i> 위치 및 주소
+            </div>
+            <p class="text-slate-600 dark:text-emerald-100/80">${campus.address}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#F0F7F2] dark:bg-emerald-950/60 space-y-1 border border-emerald-100 dark:border-emerald-800">
+            <div class="font-bold text-slate-700 dark:text-emerald-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-phone text-emerald-600"></i> 대표 전화번호
+            </div>
+            <p class="text-slate-600 dark:text-emerald-100/80">${campus.phone}</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-cubes text-knou-accent"></i> 보유 시설 및 학생 편의 공간
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-emerald-100/80 leading-relaxed bg-emerald-50/50 dark:bg-emerald-950/40 p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-800">
+            ${campus.facilities}
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-sitemap text-teal-600"></i> 관할 시·군 학습관 네트워크
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-emerald-100/80">
+            ${campus.subCenters}
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+            <i class="fa-solid fa-bus text-amber-600"></i> 교통 및 찾아오시는 길
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-emerald-300/70">
+            ${campus.transport}
+          </p>
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // FAQ 아코디언 토글
+    // ----------------------------------------------------
+    function toggleFaq(button) {
+      const answer = button.nextElementSibling;
+      const icon = button.querySelector('i');
+      const isHidden = answer.classList.contains('hidden');
+
+      if (isHidden) {
+        answer.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        answer.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // ----------------------------------------------------
+    // 모달 제어 함수
+    // ----------------------------------------------------
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // 모달 배경 클릭 시 닫기
+    window.onclick = function(event) {
+      if (event.target.classList.contains('fixed') && !event.target.classList.contains('hidden')) {
+        event.target.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    // ----------------------------------------------------
+    // 글자 크기 변경 함수 (어르신·시민 시각 편의)
+    // ----------------------------------------------------
+    function changeFontSize(size) {
+      const root = document.getElementById('page-root');
+      root.classList.remove('font-size-sm', 'font-size-base', 'font-size-lg', 'font-size-xl');
+      root.classList.add(`font-size-${size}`);
+    }
+
+    // ----------------------------------------------------
+    // 테마 토글 (다크모드/라이트모드)
+    // ----------------------------------------------------
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      updateThemeIcon(isDark);
+    }
+
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('theme-icon');
+      if (isDark) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+
+    // ----------------------------------------------------
+    // 모바일 햄버거 메뉴 토글
+    // ----------------------------------------------------
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('mobile-menu-icon');
+      const isHidden = menu.classList.toggle('hidden');
+      if (isHidden) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      }
+    }
+  </script>
+</body>
+</html>
